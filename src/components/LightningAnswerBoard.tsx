@@ -4,9 +4,11 @@ import './LightningAnswerBoard.css'
 interface LightningAnswerBoardProps {
   onScore: (team: 1 | 2, points: number) => void
   activeTeam: 1 | 2
+  team1Name: string
+  team2Name: string
 }
 
-function LightningAnswerBoard({ onScore, activeTeam }: LightningAnswerBoardProps) {
+function LightningAnswerBoard({ onScore, activeTeam, team1Name, team2Name }: LightningAnswerBoardProps) {
   const [team1Points, setTeam1Points] = useState(0)
   const [team2Points, setTeam2Points] = useState(0)
 
@@ -29,7 +31,7 @@ function LightningAnswerBoard({ onScore, activeTeam }: LightningAnswerBoardProps
       </div>
       <div className="lightning-controls">
         <div className={`lightning-team ${activeTeam === 1 ? 'active' : ''}`}>
-          <div className="lightning-team-label">Team 1</div>
+          <div className="lightning-team-label">{team1Name}</div>
           <div className="lightning-quick-buttons">
             <button onClick={() => handleQuickScore(1, 5)} className="quick-btn">+5</button>
             <button onClick={() => handleQuickScore(1, 10)} className="quick-btn">+10</button>
@@ -39,7 +41,7 @@ function LightningAnswerBoard({ onScore, activeTeam }: LightningAnswerBoardProps
           <div className="lightning-total">Total: {team1Points}</div>
         </div>
         <div className={`lightning-team ${activeTeam === 2 ? 'active' : ''}`}>
-          <div className="lightning-team-label">Team 2</div>
+          <div className="lightning-team-label">{team2Name}</div>
           <div className="lightning-quick-buttons">
             <button onClick={() => handleQuickScore(2, 5)} className="quick-btn">+5</button>
             <button onClick={() => handleQuickScore(2, 10)} className="quick-btn">+10</button>

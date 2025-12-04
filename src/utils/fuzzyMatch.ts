@@ -59,29 +59,42 @@ function levenshteinDistance(str1: string, str2: string): number {
 /**
  * Find the best matching answer from a list of answers
  * Returns the index and similarity score if above threshold
+ * Made more lenient for better matching
  */
 export function findBestMatch(
   input: string,
   answers: string[],
-  threshold: number = 0.6
+  threshold: number = 0.35
 ): { index: number; similarity: number } | null {
   let bestMatch: { index: number; similarity: number } | null = null
   
   answers.forEach((answer, index) => {
     const similarity = calculateSimilarity(input, answer)
     
-    // Also check for partial matches (key words)
+    // Also check for partial matches (key words) - more lenient
     const words = answer.toLowerCase().split(/\s+/)
     const inputWords = input.toLowerCase().split(/\s+/)
     
     let wordMatchScore = 0
     words.forEach(word => {
-      if (word.length > 3 && inputWords.some(inputWord => 
+      // Check for word matches (even shorter words now)
+      if (word.length > 2 && inputWords.some(inputWord => 
         inputWord.includes(word) || word.includes(inputWord)
       )) {
-        wordMatchScore += 0.2
+        wordMatchScore += 0.25
       }
     })
+    
+    // Check if any significant word from answer appears in input
+    const significantWords = words.filter(w => w.length > 3)
+    if (significantWords.length > 0) {
+      const matchedWords = significantWords.filter(word => 
+        input.toLowerCase().includes(word)
+      )
+      if (matchedWords.length > 0) {
+        wordMatchScore += (matchedWords.length / significantWords.length) * 0.3
+      }
+    }
     
     const finalSimilarity = Math.max(similarity, wordMatchScore)
     

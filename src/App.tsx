@@ -8,11 +8,16 @@ import ClosestAnswerBoard from './components/ClosestAnswerBoard'
 import MultiAnswerBoard from './components/MultiAnswerBoard'
 import OpenAnswerBoard from './components/OpenAnswerBoard'
 import LightningAnswerBoard from './components/LightningAnswerBoard'
+import RankingBoard from './components/RankingBoard'
 import ControlPanel from './components/ControlPanel'
+import IntroScreen from './components/IntroScreen'
 import { QUESTIONS, Question } from './data/questions'
 import './App.css'
 
 function App() {
+  const [showIntro, setShowIntro] = useState(true)
+  const [team1Name, setTeam1Name] = useState('Team 1')
+  const [team2Name, setTeam2Name] = useState('Team 2')
   const [team1Score, setTeam1Score] = useState(0)
   const [team2Score, setTeam2Score] = useState(0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -22,7 +27,8 @@ function App() {
   
   // State for different question types
   const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set())
-  const [multiSelectedIndex, setMultiSelectedIndex] = useState<number | null>(null)
+  const [team1SelectedIndex, setTeam1SelectedIndex] = useState<number | null>(null)
+  const [team2SelectedIndex, setTeam2SelectedIndex] = useState<number | null>(null)
   const [multiShowResult, setMultiShowResult] = useState(false)
 
   const handleScore = (team: 1 | 2, points: number) => {
@@ -50,20 +56,35 @@ function App() {
 
   const handleMultiSelect = (index: number) => {
     if (multiShowResult) return
-    setMultiSelectedIndex(index)
+    if (activeTeam === 1) {
+      setTeam1SelectedIndex(index)
+    } else {
+      setTeam2SelectedIndex(index)
+    }
   }
 
   const handleMultiReveal = () => {
-    if (multiSelectedIndex === null) return
+    if (team1SelectedIndex === null || team2SelectedIndex === null) return
     setMultiShowResult(true)
     
     if (currentQuestion.type === 'multi' && currentQuestion.answers) {
-      const answer = currentQuestion.answers[multiSelectedIndex]
-      if ('isCorrect' in answer) {
-        if (answer.isCorrect) {
-          handleScore(activeTeam, 50)
+      // Score Team 1
+      const team1Answer = currentQuestion.answers[team1SelectedIndex]
+      if ('isCorrect' in team1Answer) {
+        if (team1Answer.isCorrect) {
+          handleScore(1, 50)
         } else {
-          addStrike()
+          // Don't add strike, just no points
+        }
+      }
+      
+      // Score Team 2
+      const team2Answer = currentQuestion.answers[team2SelectedIndex]
+      if ('isCorrect' in team2Answer) {
+        if (team2Answer.isCorrect) {
+          handleScore(2, 50)
+        } else {
+          // Don't add strike, just no points
         }
       }
     }
@@ -85,8 +106,15 @@ function App() {
     setCurrentQuestion(QUESTIONS[nextIndex])
     setStrikes(0)
     setRevealedIndices(new Set())
-    setMultiSelectedIndex(null)
+    setTeam1SelectedIndex(null)
+    setTeam2SelectedIndex(null)
     setMultiShowResult(false)
+  }
+
+  const handleStartGame = (name1: string, name2: string) => {
+    setTeam1Name(name1)
+    setTeam2Name(name2)
+    setShowIntro(false)
   }
 
   const resetGame = () => {
@@ -97,20 +125,41 @@ function App() {
     setActiveTeam(1)
     setStrikes(0)
     setRevealedIndices(new Set())
-    setMultiSelectedIndex(null)
+    setTeam1SelectedIndex(null)
+    setTeam2SelectedIndex(null)
     setMultiShowResult(false)
+  }
+
+  const goToIntro = () => {
+    setShowIntro(true)
+    resetGame()
   }
 
   const renderAnswerBoard = () => {
     switch (currentQuestion.type) {
       case 'survey':
         if (currentQuestion.answers && currentQuestion.answers.length > 0 && 'points' in currentQuestion.answers[0]) {
+          // Round 7 (id: 7) uses drag-and-drop ranking
+          if (currentQuestion.id === 7) {
+            return (
+              <RankingBoard
+                answers={currentQuestion.answers as any}
+                team1Name={team1Name}
+                team2Name={team2Name}
+                activeTeam={activeTeam}
+                onScore={handleScore}
+              />
+            )
+          }
+          // Other survey questions use the regular answer board
           return (
             <SurveyAnswerBoard
               answers={currentQuestion.answers as any}
               revealedIndices={revealedIndices}
               onReveal={revealSurveyAnswer}
+              onStrike={addStrike}
               activeTeam={activeTeam}
+              activeTeamName={activeTeam === 1 ? team1Name : team2Name}
             />
           )
         }
@@ -123,6 +172,8 @@ function App() {
             expectedRange={currentQuestion.expectedRange}
             onScore={handleScore}
             activeTeam={activeTeam}
+            team1Name={team1Name}
+            team2Name={team2Name}
           />
         )
 
@@ -132,11 +183,15 @@ function App() {
             <>
               <MultiAnswerBoard
                 answers={currentQuestion.answers as any}
-                selectedIndex={multiSelectedIndex}
+                team1SelectedIndex={team1SelectedIndex}
+                team2SelectedIndex={team2SelectedIndex}
+                team1Name={team1Name}
+                team2Name={team2Name}
+                activeTeam={activeTeam}
                 onSelect={handleMultiSelect}
                 showResult={multiShowResult}
               />
-              {multiSelectedIndex !== null && !multiShowResult && (
+              {team1SelectedIndex !== null && team2SelectedIndex !== null && !multiShowResult && (
                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
                   <button
                     onClick={handleMultiReveal}
@@ -151,8 +206,14 @@ function App() {
                       cursor: 'pointer',
                     }}
                   >
-                    Reveal Answer
+                    Reveal Answers
                   </button>
+                </div>
+              )}
+              {((team1SelectedIndex === null || team2SelectedIndex === null) && !multiShowResult) && (
+                <div style={{ textAlign: 'center', marginTop: '20px', color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.1rem' }}>
+                  {team1SelectedIndex === null && `Waiting for ${team1Name} to select...`}
+                  {team1SelectedIndex !== null && team2SelectedIndex === null && `Waiting for ${team2Name} to select...`}
                 </div>
               )}
             </>
@@ -166,6 +227,8 @@ function App() {
             onScore={handleScore}
             activeTeam={activeTeam}
             maxPoints={40}
+            team1Name={team1Name}
+            team2Name={team2Name}
           />
         )
 
@@ -174,12 +237,18 @@ function App() {
           <LightningAnswerBoard
             onScore={handleScore}
             activeTeam={activeTeam}
+            team1Name={team1Name}
+            team2Name={team2Name}
           />
         )
 
       default:
         return null
     }
+  }
+
+  if (showIntro) {
+    return <IntroScreen onStart={handleStartGame} />
   }
 
   return (
@@ -189,6 +258,8 @@ function App() {
       </header>
       <GameBoard>
         <ScoreBoard 
+          team1Name={team1Name}
+          team2Name={team2Name}
           team1Score={team1Score} 
           team2Score={team2Score}
           activeTeam={activeTeam}
@@ -206,6 +277,7 @@ function App() {
           onNextQuestion={nextQuestion}
           onReset={resetGame}
           onSwitchTeam={() => setActiveTeam(activeTeam === 1 ? 2 : 1)}
+          onGoToIntro={goToIntro}
         />
       </GameBoard>
     </div>

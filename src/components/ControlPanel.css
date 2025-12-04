@@ -97,6 +97,11 @@
   color: white;
 }
 
+.btn-intro {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  color: white;
+}
+
 @media (max-width: 768px) {
   .control-panel {
     padding: 20px;

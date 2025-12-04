@@ -6,10 +6,12 @@ interface SurveyAnswerBoardProps {
   answers: SurveyAnswer[]
   revealedIndices: Set<number>
   onReveal: (index: number) => void
+  onStrike: () => void
   activeTeam: 1 | 2
+  activeTeamName: string
 }
 
-function SurveyAnswerBoard({ answers, revealedIndices, onReveal, activeTeam }: SurveyAnswerBoardProps) {
+function SurveyAnswerBoard({ answers, revealedIndices, onReveal, onStrike, activeTeamName }: SurveyAnswerBoardProps) {
   const answerLabels = answers.map(a => a.label)
   
   return (
@@ -18,7 +20,8 @@ function SurveyAnswerBoard({ answers, revealedIndices, onReveal, activeTeam }: S
         answers={answerLabels}
         revealedIndices={revealedIndices}
         onReveal={onReveal}
-        activeTeam={activeTeam}
+        onStrike={onStrike}
+        activeTeamName={activeTeamName}
       />
       <div className="answer-board">
         {answers.map((answer, index) => {

@@ -1,0 +1,252 @@
+.ranking-board {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.ranking-instructions {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #ffd700;
+}
+
+.ranking-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.ranking-section {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.ranking-section.active {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.ranking-section.scored {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.ranking-header h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #ffd700;
+}
+
+.ranking-score {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: move;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ranking-item:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(5px);
+}
+
+.ranking-item.dragging {
+  opacity: 0.5;
+}
+
+.ranking-item.correct-position {
+  background: rgba(76, 175, 80, 0.3);
+  border-color: #4caf50;
+}
+
+.ranking-item.incorrect-position {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: #f44336;
+}
+
+.ranking-position {
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd700;
+  border: 2px solid #ffd700;
+}
+
+.ranking-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ranking-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+}
+
+.ranking-feedback {
+  font-size: 0.9rem;
+}
+
+.correct-indicator {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.incorrect-indicator {
+  color: #f44336;
+  font-style: italic;
+}
+
+.drag-handle {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  cursor: grab;
+  user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.score-ranking-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.score-ranking-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.score-ranking-btn:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.correct-order-reveal {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  border: 2px solid #4caf50;
+}
+
+.correct-order-reveal h4 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #4caf50;
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+
+.correct-order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.correct-order-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background: rgba(76, 175, 80, 0.2);
+  border-radius: 8px;
+}
+
+.correct-position-number {
+  min-width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4caf50;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+}
+
+.correct-order-label {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+
+.correct-order-points {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+@media (max-width: 768px) {
+  .ranking-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .ranking-item {
+    padding: 12px;
+  }
+  
+  .ranking-label {
+    font-size: 1rem;
+  }
+}
+

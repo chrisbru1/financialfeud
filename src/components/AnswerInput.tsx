@@ -1,69 +1,100 @@
-import { useState, useEffect } from 'react'
-import { findBestMatch } from '../utils/fuzzyMatch'
+import { useState } from 'react'
+import { calculateSimilarity } from '../utils/fuzzyMatch'
 import './AnswerInput.css'
 
 interface AnswerInputProps {
   answers: string[]
   revealedIndices: Set<number>
   onReveal: (index: number) => void
-  activeTeam: 1 | 2
+  onStrike: () => void
+  activeTeamName: string
 }
 
-function AnswerInput({ answers, revealedIndices, onReveal, activeTeam }: AnswerInputProps) {
+function AnswerInput({ answers, revealedIndices, onReveal, onStrike, activeTeamName }: AnswerInputProps) {
   const [input, setInput] = useState('')
-  const [matchResult, setMatchResult] = useState<{ index: number; similarity: number } | null>(null)
-  const [showSuggestion, setShowSuggestion] = useState(false)
-
-  useEffect(() => {
-    if (input.trim().length > 2) {
-      const match = findBestMatch(input, answers, 0.5)
-      setMatchResult(match)
-      setShowSuggestion(match !== null && match.similarity >= 0.5 && match.similarity < 0.85)
-    } else {
-      setMatchResult(null)
-      setShowSuggestion(false)
-    }
-  }, [input, answers])
+  const [feedback, setFeedback] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     
     if (input.trim().length === 0) return
     
-    const match = findBestMatch(input, answers, 0.5)
+    const trimmedInput = input.trim()
     
-    if (match && !revealedIndices.has(match.index)) {
-      if (match.similarity >= 0.85) {
-        // Auto-reveal if very close match
-        onReveal(match.index)
-        setInput('')
-        setMatchResult(null)
-        setShowSuggestion(false)
-      } else if (match.similarity >= 0.5) {
-        // Show suggestion for manual reveal
-        setShowSuggestion(true)
-      }
-    } else if (match && revealedIndices.has(match.index)) {
-      // Already revealed
+    // Check if all answers are revealed
+    if (revealedIndices.size === answers.length) {
+      setFeedback({ type: 'error', message: 'All answers have been revealed!' })
+      setTimeout(() => setFeedback({ type: null, message: '' }), 2000)
       setInput('')
-      setMatchResult(null)
-      setShowSuggestion(false)
+      return
     }
-  }
-
-  const handleRevealSuggestion = () => {
-    if (matchResult && !revealedIndices.has(matchResult.index)) {
-      onReveal(matchResult.index)
+    
+    // Check against all answers, but only consider unrevealed ones
+    type MatchResult = { index: number; similarity: number }
+    let bestMatch: MatchResult | null = null
+    
+    for (let index = 0; index < answers.length; index++) {
+      // Skip already revealed answers
+      if (revealedIndices.has(index)) continue
+      
+      const answer = answers[index]
+      
+      // Calculate similarity directly
+      const similarity = calculateSimilarity(trimmedInput, answer)
+      
+      // Also check for partial matches (key words)
+      const words = answer.toLowerCase().split(/\s+/)
+      const inputWords = trimmedInput.toLowerCase().split(/\s+/)
+      
+      let wordMatchScore = 0
+      words.forEach(word => {
+        // Check for word matches (even shorter words now)
+        if (word.length > 2 && inputWords.some(inputWord => 
+          inputWord.includes(word) || word.includes(inputWord)
+        )) {
+          wordMatchScore += 0.25
+        }
+      })
+      
+      // Check if any significant word from answer appears in input
+      const significantWords = words.filter(w => w.length > 3)
+      if (significantWords.length > 0) {
+        const matchedWords = significantWords.filter(word => 
+          trimmedInput.toLowerCase().includes(word)
+        )
+        if (matchedWords.length > 0) {
+          wordMatchScore += (matchedWords.length / significantWords.length) * 0.3
+        }
+      }
+      
+      const finalSimilarity = Math.max(similarity, wordMatchScore)
+      
+      // Use a very lenient threshold (0.35 = 35% similarity)
+      if (finalSimilarity >= 0.35) {
+        if (!bestMatch || finalSimilarity > bestMatch.similarity) {
+          bestMatch = { index, similarity: finalSimilarity }
+        }
+      }
+    }
+    
+    if (bestMatch !== null) {
+      // Close match - reveal the answer
+      onReveal(bestMatch.index)
+      setFeedback({ type: 'success', message: '✓ Correct! Answer revealed.' })
       setInput('')
-      setMatchResult(null)
-      setShowSuggestion(false)
+      setTimeout(() => setFeedback({ type: null, message: '' }), 2000)
+    } else {
+      // No match - add a strike
+      onStrike()
+      setFeedback({ type: 'error', message: '✗ Wrong answer! Strike added.' })
+      setInput('')
+      setTimeout(() => setFeedback({ type: null, message: '' }), 2000)
     }
   }
 
   const handleClear = () => {
     setInput('')
-    setMatchResult(null)
-    setShowSuggestion(false)
+    setFeedback({ type: null, message: '' })
   }
 
   return (
@@ -74,7 +105,7 @@ function AnswerInput({ answers, revealedIndices, onReveal, activeTeam }: AnswerI
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={`Team ${activeTeam}: Type your answer...`}
+            placeholder={`${activeTeamName}: Type your answer...`}
             className="answer-input"
             autoComplete="off"
           />
@@ -94,26 +125,9 @@ function AnswerInput({ answers, revealedIndices, onReveal, activeTeam }: AnswerI
         </button>
       </form>
       
-      {showSuggestion && matchResult && (
-        <div className="suggestion-box">
-          <div className="suggestion-text">
-            Did you mean: <strong>{answers[matchResult.index]}</strong>?
-          </div>
-          <div className="suggestion-similarity">
-            Match: {Math.round(matchResult.similarity * 100)}%
-          </div>
-          <button
-            onClick={handleRevealSuggestion}
-            className="reveal-suggestion-button"
-          >
-            Reveal This Answer
-          </button>
-        </div>
-      )}
-      
-      {matchResult && matchResult.similarity >= 0.85 && !revealedIndices.has(matchResult.index) && (
-        <div className="auto-match-indicator">
-          ✓ Auto-matched! Revealing answer...
+      {feedback.type && (
+        <div className={`feedback-message ${feedback.type}`}>
+          {feedback.message}
         </div>
       )}
     </div>
@@ -121,4 +135,3 @@ function AnswerInput({ answers, revealedIndices, onReveal, activeTeam }: AnswerI
 }
 
 export default AnswerInput
-

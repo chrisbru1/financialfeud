@@ -5,9 +5,11 @@ interface OpenAnswerBoardProps {
   onScore: (team: 1 | 2, points: number) => void
   activeTeam: 1 | 2
   maxPoints?: number
+  team1Name: string
+  team2Name: string
 }
 
-function OpenAnswerBoard({ onScore, activeTeam, maxPoints = 40 }: OpenAnswerBoardProps) {
+function OpenAnswerBoard({ onScore, activeTeam, maxPoints = 40, team1Name, team2Name }: OpenAnswerBoardProps) {
   const [team1Answer, setTeam1Answer] = useState('')
   const [team2Answer, setTeam2Answer] = useState('')
   const [team1Points, setTeam1Points] = useState<number | null>(null)
@@ -32,7 +34,7 @@ function OpenAnswerBoard({ onScore, activeTeam, maxPoints = 40 }: OpenAnswerBoar
       </div>
       <div className="open-inputs">
         <div className={`open-input-group ${activeTeam === 1 ? 'active' : ''}`}>
-          <label>Team 1 Answer:</label>
+          <label>{team1Name} Answer:</label>
           <textarea
             value={team1Answer}
             onChange={(e) => setTeam1Answer(e.target.value)}
@@ -70,7 +72,7 @@ function OpenAnswerBoard({ onScore, activeTeam, maxPoints = 40 }: OpenAnswerBoar
           )}
         </div>
         <div className={`open-input-group ${activeTeam === 2 ? 'active' : ''}`}>
-          <label>Team 2 Answer:</label>
+          <label>{team2Name} Answer:</label>
           <textarea
             value={team2Answer}
             onChange={(e) => setTeam2Answer(e.target.value)}

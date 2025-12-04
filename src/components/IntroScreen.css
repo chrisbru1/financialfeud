@@ -1,0 +1,211 @@
+.intro-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.intro-content {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 60px 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.intro-header {
+  margin-bottom: 50px;
+}
+
+.intro-title {
+  font-size: 4.5rem;
+  font-weight: bold;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  margin: 0 0 20px 0;
+  color: #fff;
+  animation: titlePulse 2s infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.intro-subtitle {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.team-naming {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.team-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.team-input-group label {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.team-input {
+  padding: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.team-input:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+}
+
+.team-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.vs-divider {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: -10px 0;
+  position: relative;
+}
+
+.vs-divider::before,
+.vs-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+
+.vs-divider::before {
+  left: -120px;
+}
+
+.vs-divider::after {
+  right: -120px;
+}
+
+.start-button {
+  padding: 20px 60px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+  min-width: 250px;
+}
+
+.start-button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.6);
+}
+
+.start-button:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.start-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .intro-content {
+    padding: 40px 25px;
+  }
+  
+  .intro-title {
+    font-size: 3rem;
+  }
+  
+  .intro-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .team-input {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+  
+  .vs-divider {
+    font-size: 2rem;
+  }
+  
+  .vs-divider::before,
+  .vs-divider::after {
+    width: 50px;
+  }
+  
+  .vs-divider::before {
+    left: -70px;
+  }
+  
+  .vs-divider::after {
+    right: -70px;
+  }
+  
+  .start-button {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    min-width: 200px;
+  }
+}
+
