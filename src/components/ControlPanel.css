@@ -1,0 +1,124 @@
+.control-panel {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+.strikes-display {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.strikes-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.strikes-indicator {
+  display: flex;
+  gap: 15px;
+}
+
+.strike {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.strike.active {
+  background: rgba(244, 67, 54, 0.8);
+  border-color: #f44336;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(244, 67, 54, 0.6);
+}
+
+.control-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-strike {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.btn-switch {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: white;
+}
+
+.btn-next {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: white;
+}
+
+.btn-reset {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .control-panel {
+    padding: 20px;
+  }
+  
+  .control-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .strike {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+}
+
+
+

@@ -1,0 +1,117 @@
+.closest-answer-board {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.closest-instructions {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #ffd700;
+}
+
+.closest-inputs {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.closest-input-group {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.closest-input-group.active {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.closest-input-group label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.closest-input-group input {
+  padding: 15px;
+  font-size: 1.5rem;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: bold;
+}
+
+.closest-input-group input:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.closest-input-group input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.closest-input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.score-btn {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.score-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.score-btn:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.expected-range {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .closest-inputs {
+    flex-direction: column;
+  }
+  
+  .closest-input-group {
+    min-width: 100%;
+  }
+}
+
+
