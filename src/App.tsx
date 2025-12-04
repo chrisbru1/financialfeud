@@ -110,6 +110,7 @@ function App() {
               answers={currentQuestion.answers as any}
               revealedIndices={revealedIndices}
               onReveal={revealSurveyAnswer}
+              activeTeam={activeTeam}
             />
           )
         }
