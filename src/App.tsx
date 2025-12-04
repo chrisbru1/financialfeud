@@ -46,11 +46,9 @@ function App() {
     newRevealed.add(index)
     setRevealedIndices(newRevealed)
 
-    if (currentQuestion.type === 'survey' && currentQuestion.answers) {
+    if (currentQuestion.type === 'survey') {
       const answer = currentQuestion.answers[index]
-      if ('points' in answer) {
-        handleScore(activeTeam, answer.points)
-      }
+      handleScore(activeTeam, answer.points)
     }
   }
 
@@ -67,25 +65,17 @@ function App() {
     if (team1SelectedIndex === null || team2SelectedIndex === null) return
     setMultiShowResult(true)
     
-    if (currentQuestion.type === 'multi' && currentQuestion.answers) {
+    if (currentQuestion.type === 'multi') {
       // Score Team 1
       const team1Answer = currentQuestion.answers[team1SelectedIndex]
-      if ('isCorrect' in team1Answer) {
-        if (team1Answer.isCorrect) {
-          handleScore(1, 50)
-        } else {
-          // Don't add strike, just no points
-        }
+      if (team1Answer.isCorrect) {
+        handleScore(1, 50)
       }
       
       // Score Team 2
       const team2Answer = currentQuestion.answers[team2SelectedIndex]
-      if ('isCorrect' in team2Answer) {
-        if (team2Answer.isCorrect) {
-          handleScore(2, 50)
-        } else {
-          // Don't add strike, just no points
-        }
+      if (team2Answer.isCorrect) {
+        handleScore(2, 50)
       }
     }
   }
@@ -138,37 +128,34 @@ function App() {
   const renderAnswerBoard = () => {
     switch (currentQuestion.type) {
       case 'survey':
-        if (currentQuestion.answers && currentQuestion.answers.length > 0 && 'points' in currentQuestion.answers[0]) {
-          // Round 7 (id: 7) uses drag-and-drop ranking
-          if (currentQuestion.id === 7) {
-            return (
-              <RankingBoard
-                answers={currentQuestion.answers as any}
-                team1Name={team1Name}
-                team2Name={team2Name}
-                activeTeam={activeTeam}
-                onScore={handleScore}
-              />
-            )
-          }
-          // Other survey questions use the regular answer board
+        // Round 13 (id: 13) uses drag-and-drop ranking
+        if (currentQuestion.id === 13) {
           return (
-            <SurveyAnswerBoard
-              answers={currentQuestion.answers as any}
-              revealedIndices={revealedIndices}
-              onReveal={revealSurveyAnswer}
-              onStrike={addStrike}
+            <RankingBoard
+              answers={currentQuestion.answers}
+              team1Name={team1Name}
+              team2Name={team2Name}
               activeTeam={activeTeam}
-              activeTeamName={activeTeam === 1 ? team1Name : team2Name}
+              onScore={handleScore}
             />
           )
         }
-        return null
+        // Other survey questions use the regular answer board
+        return (
+          <SurveyAnswerBoard
+            answers={currentQuestion.answers}
+            revealedIndices={revealedIndices}
+            onReveal={revealSurveyAnswer}
+            onStrike={addStrike}
+            activeTeam={activeTeam}
+            activeTeamName={activeTeam === 1 ? team1Name : team2Name}
+          />
+        )
 
       case 'closest':
         return (
           <ClosestAnswerBoard
-            correctAnswer={currentQuestion.correctAnswer as number || 0}
+            correctAnswer={currentQuestion.correctAnswer}
             expectedRange={currentQuestion.expectedRange}
             onScore={handleScore}
             activeTeam={activeTeam}
@@ -178,48 +165,45 @@ function App() {
         )
 
       case 'multi':
-        if (currentQuestion.answers && currentQuestion.answers.length > 0 && 'isCorrect' in currentQuestion.answers[0]) {
-          return (
-            <>
-              <MultiAnswerBoard
-                answers={currentQuestion.answers as any}
-                team1SelectedIndex={team1SelectedIndex}
-                team2SelectedIndex={team2SelectedIndex}
-                team1Name={team1Name}
-                team2Name={team2Name}
-                activeTeam={activeTeam}
-                onSelect={handleMultiSelect}
-                showResult={multiShowResult}
-              />
-              {team1SelectedIndex !== null && team2SelectedIndex !== null && !multiShowResult && (
-                <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                  <button
-                    onClick={handleMultiReveal}
-                    style={{
-                      padding: '15px 30px',
-                      fontSize: '1.2rem',
-                      fontWeight: 'bold',
-                      background: 'linear-gradient(135deg, #4caf50, #388e3c)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '10px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Reveal Answers
-                  </button>
-                </div>
-              )}
-              {((team1SelectedIndex === null || team2SelectedIndex === null) && !multiShowResult) && (
-                <div style={{ textAlign: 'center', marginTop: '20px', color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.1rem' }}>
-                  {team1SelectedIndex === null && `Waiting for ${team1Name} to select...`}
-                  {team1SelectedIndex !== null && team2SelectedIndex === null && `Waiting for ${team2Name} to select...`}
-                </div>
-              )}
-            </>
-          )
-        }
-        return null
+        return (
+          <>
+            <MultiAnswerBoard
+              answers={currentQuestion.answers}
+              team1SelectedIndex={team1SelectedIndex}
+              team2SelectedIndex={team2SelectedIndex}
+              team1Name={team1Name}
+              team2Name={team2Name}
+              activeTeam={activeTeam}
+              onSelect={handleMultiSelect}
+              showResult={multiShowResult}
+            />
+            {team1SelectedIndex !== null && team2SelectedIndex !== null && !multiShowResult && (
+              <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <button
+                  onClick={handleMultiReveal}
+                  style={{
+                    padding: '15px 30px',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
+                    background: 'linear-gradient(135deg, #4caf50, #388e3c)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '10px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Reveal Answers
+                </button>
+              </div>
+            )}
+            {((team1SelectedIndex === null || team2SelectedIndex === null) && !multiShowResult) && (
+              <div style={{ textAlign: 'center', marginTop: '20px', color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.1rem' }}>
+                {team1SelectedIndex === null && `Waiting for ${team1Name} to select...`}
+                {team1SelectedIndex !== null && team2SelectedIndex === null && `Waiting for ${team2Name} to select...`}
+              </div>
+            )}
+          </>
+        )
 
       case 'open':
         return (

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './ClosestAnswerBoard.css'
 
 interface ClosestAnswerBoardProps {
-  correctAnswer: number
+  correctAnswer: number | null
   expectedRange?: { min: number; max: number }
   onScore: (team: 1 | 2, points: number) => void
   activeTeam: 1 | 2
@@ -10,7 +10,7 @@ interface ClosestAnswerBoardProps {
   team2Name: string
 }
 
-function ClosestAnswerBoard({ correctAnswer, onScore, activeTeam, team1Name, team2Name }: ClosestAnswerBoardProps) {
+function ClosestAnswerBoard({ correctAnswer, expectedRange, onScore, activeTeam, team1Name, team2Name }: ClosestAnswerBoardProps) {
   const [team1Guess, setTeam1Guess] = useState<string>('')
   const [team2Guess, setTeam2Guess] = useState<string>('')
   const [team1Scored, setTeam1Scored] = useState(false)
@@ -19,28 +19,59 @@ function ClosestAnswerBoard({ correctAnswer, onScore, activeTeam, team1Name, tea
   const [team2PointsAwarded, setTeam2PointsAwarded] = useState<number | null>(null)
 
   const calculatePoints = (guess: number): number => {
-    if (correctAnswer === 0) return 0 // Not configured
+    if (correctAnswer === null || correctAnswer === 0) return 0 // Not configured
     
     const difference = Math.abs(guess - correctAnswer)
-    // Use a more forgiving range (40% of the answer value) for closer answers
-    const range = correctAnswer * 0.4
-    const percentage = (1 - difference / range) * 100
     
-    // More forgiving: even answers that are 50% off still get some points
-    if (percentage <= 0) {
-      // For very far answers, use a wider range (60% of answer)
-      const wideRange = correctAnswer * 0.6
-      const widePercentage = (1 - difference / wideRange) * 100
-      if (widePercentage <= 0) return 0
-      // Give at least 5 points if within 60% range
-      return Math.max(5, Math.round(widePercentage * 0.3))
+    // Exact match = 75 points
+    if (difference === 0) return 75
+    
+    // Check if within expected range
+    if (expectedRange) {
+      const { min, max } = expectedRange
+      // If outside expected range, return 0 points
+      if (guess < min || guess > max) return 0
+      
+      // Within range: calculate points based on closeness to center
+      const distanceFromCenter = Math.abs(guess - correctAnswer)
+      const maxDistanceFromCenter = Math.max(correctAnswer - min, max - correctAnswer)
+      
+      // Calculate how close to center (0 = at center, 1 = at edge)
+      const normalizedDistance = distanceFromCenter / maxDistanceFromCenter
+      
+      // Scoring tiers:
+      // Very close (within 10% of range from center) = 50 points
+      // Close (within 30% of range from center) = 25-40 points
+      // Medium (within 60% of range from center) = 15-25 points
+      // Far but in range (60-100% from center) = 10-15 points
+      
+      if (normalizedDistance <= 0.1) {
+        // Very close to center
+        return 50
+      } else if (normalizedDistance <= 0.3) {
+        // Close to center - scale from 50 to 25
+        const scale = 1 - ((normalizedDistance - 0.1) / 0.2)
+        return Math.round(25 + (scale * 25))
+      } else if (normalizedDistance <= 0.6) {
+        // Medium distance - scale from 25 to 15
+        const scale = 1 - ((normalizedDistance - 0.3) / 0.3)
+        return Math.round(15 + (scale * 10))
+      } else {
+        // Far but still in range - scale from 15 to 10
+        const scale = 1 - ((normalizedDistance - 0.6) / 0.4)
+        return Math.round(10 + (scale * 5))
+      }
     }
     
-    if (percentage >= 100) return 50 // Exact or very close = max points
+    // Fallback if no expected range: use 20% of answer as range
+    const range = correctAnswer * 0.2
+    if (difference > range) return 0
     
-    // More forgiving curve: use square root to give more points for closer answers
-    const normalizedScore = Math.sqrt(percentage / 100) * 50
-    return Math.round(normalizedScore)
+    // Scale points based on distance
+    const percentage = (1 - difference / range) * 100
+    if (percentage >= 90) return 50 // Very close
+    if (percentage >= 50) return 25 // Close
+    return Math.max(10, Math.round(percentage * 0.2)) // Further away
   }
 
   const handleScore = (team: 1 | 2, guess: string) => {

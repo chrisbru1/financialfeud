@@ -113,7 +113,7 @@ function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: Ra
               <div
                 key={answerIndex}
                 className={`ranking-item ${showCorrect ? 'correct-position' : ''} ${showResults && !isCorrectPosition ? 'incorrect-position' : ''}`}
-                draggable={!isScored && isActive}
+                draggable={!isScored}
                 onDragStart={(e) => handleDragStart(e, position, team)}
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, position, team)}
@@ -133,7 +133,7 @@ function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: Ra
                     </div>
                   )}
                 </div>
-                {!isScored && isActive && (
+                {!isScored && (
                   <div className="drag-handle">⋮⋮</div>
                 )}
               </div>
