@@ -79,32 +79,24 @@ export const QUESTIONS: Question[] = [
       "Name the items with the biggest impact on gross margin.",
     answers: [
       {
-        label: "Shopper & Fondue pricing / attach",
+        label: "Per message pricing (net revenue per message)",
+        points: 50,
+      },
+      {
+        label: "Bundling other products (Shopper, Fondue, Infinity Testing, Plus)",
+        points: 50,
+      },
+      {
+        label: "Aggregator costs (Twilio fees)",
         points: 30,
       },
       {
-        label: "Core SMS pricing / net revenue per message",
-        points: 25,
-      },
-      {
-        label: "Twilio aggregator fees",
+        label: "Infrastructure cost efficiency (hosting, data infra, LLM token usage)",
         points: 20,
       },
       {
-        label: "Carrier route mix and SMS fees",
-        points: 15,
-      },
-      {
-        label: "Hosting and data infrastructure",
+        label: "Support & managed services efficiency (per-customer effort)",
         points: 10,
-      },
-      {
-        label: "AI / token efficiency",
-        points: 10,
-      },
-      {
-        label: "Support effort per customer",
-        points: 5,
       },
     ] as SurveyAnswer[],
     hostNotes:
@@ -128,7 +120,7 @@ export const QUESTIONS: Question[] = [
     prompt:
       "For a ~$100M SaaS business, what is a healthy gross margin percentage?",
     hostNotes:
-      "Expected range is 70–80%. 75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 70-80.",
+      "75 points if exact, 50 points for closest to the center if no one gets it exactly, 25 points if the second closest answered inside 70-80, inclusive of 70 and 80.",
     correctAnswer: 75,
     expectedRange: { min: 70, max: 80 },
   },
@@ -162,7 +154,7 @@ export const QUESTIONS: Question[] = [
     prompt:
       "After paying all expenses, what EBITDA margin % is considered healthy for a scaled B2B SaaS business?",
     hostNotes:
-      "EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is profit after all operating expenses. Expected range: 10–20%. So anything in low-to-mid teens = 'good'; under 10 or over 25 is unrealistic for the use case you're teaching.",
+      "EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is profit after all operating expenses. 75 points if exact, 50 points for closest to 15 if no one gets it exactly, 25 points if the second closest answered inside 10-20.",
     correctAnswer: 15,
     expectedRange: { min: 10, max: 20 },
   },
@@ -226,12 +218,12 @@ export const QUESTIONS: Question[] = [
   {
     id: 12,
     roundLabel: "Round 12",
-    title: "Our ARR per FTE (Reality check)",
+    title: "Our Net Revenue per FTE",
     type: "closest",
     prompt:
-      "Now guess OUR current ARR (or net revenue) per employee.",
+      "Now guess OUR current Net Revenue per employee.",
     hostNotes:
-      "75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 260,000–310,000.",
+      "75 points if they get it exactly, 50 points for closest to the center if no one gets it exactly, 25 points if the second closest answered inside 260,000–310,000.",
     correctAnswer: 285000,
     expectedRange: { min: 260000, max: 310000 },
   },
@@ -250,8 +242,8 @@ export const QUESTIONS: Question[] = [
     hostNotes: "Ranked list, both teams get a list to organize. That's the 'canonical' ordering (highest % to lowest).",
   },
   {
-    id: 15,
-    roundLabel: "Round 15",
+    id: 14,
+    roundLabel: "Round 14",
     title: "Lightning 'Would You Rather?'",
     type: "lightning",
     prompt:
