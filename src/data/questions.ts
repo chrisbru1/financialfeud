@@ -47,13 +47,13 @@ export const QUESTIONS: Question[] = [
     title: "Where does $1 of revenue go?",
     type: "survey",
     prompt:
-      "When we make $1 in net revenue, name the main buckets it flows into on our P&L.",
+      "Name the 5 expense categories that build our Operating Expenses (OpEx) in the P&L.",
     answers: [
-      { label: "Sales & Marketing spend", points: 50 },
-      { label: "R&D / product development", points: 30 },
-      { label: "Aggregator COGS (Twilio)", points: 25 },
-      { label: "G&A and overhead", points: 20 },
-      { label: "Infrastructure and Hosting COGS (AWS, Givecard, OpenAI)", points: 10 },
+      { label: "Sales & Marketing", points: 40 },
+      { label: "R&D / Product Development", points: 30 },
+      { label: "G&A / Overhead", points: 20 },
+      { label: "Customer Support / Success", points: 15 },
+      { label: "Other OpEx (tools, contractors, travel)", points: 10 },
     ] as SurveyAnswer[],
     hostNotes:
       "Feud-style: any bucket they name that matches one of these earns the corresponding points.",
@@ -64,9 +64,9 @@ export const QUESTIONS: Question[] = [
     title: "How much do we keep as gross profit?",
     type: "closest",
     prompt:
-      "What is Postscript's gross margin % of net revenue?",
+      "What percentage of our net revenue do we keep after paying all messaging fees (Twilio, carrier fees, etc.)?",
     hostNotes:
-      "75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 65-75.",
+      "We are looking for a percentage answer like 70%. 75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 65-75.",
     correctAnswer: 70,
     expectedRange: { min: 65, max: 75 },
   },
@@ -79,24 +79,36 @@ export const QUESTIONS: Question[] = [
       "Name the items with the biggest impact on gross margin.",
     answers: [
       {
-        label: "Pricing & packaging (net revenue per message, multi-product attach)",
-        points: 50,
-      },
-      {
-        label: "Aggregator economics (Twilio)",
+        label: "Shopper & Fondue pricing / attach",
         points: 30,
       },
       {
-        label: "Infrastructure cost efficiency (hosting, data infra, LLM token usage)",
+        label: "Core SMS pricing / net revenue per message",
+        points: 25,
+      },
+      {
+        label: "Twilio aggregator fees",
         points: 20,
       },
       {
-        label: "Support & managed services efficiency (per-customer effort)",
+        label: "Carrier route mix and SMS fees",
+        points: 15,
+      },
+      {
+        label: "Hosting and data infrastructure",
         points: 10,
+      },
+      {
+        label: "AI / token efficiency",
+        points: 10,
+      },
+      {
+        label: "Support effort per customer",
+        points: 5,
       },
     ] as SurveyAnswer[],
     hostNotes:
-      "Top 4 levers; award points when they land them.",
+      "Top levers; award points when they land them.",
   },
   {
     id: 4,
@@ -106,17 +118,17 @@ export const QUESTIONS: Question[] = [
     prompt:
       "If you could only improve ONE lever first to get to profitability faster, would you pick expense efficiency or revenue growth? And why?",
     hostNotes:
-      "Good reasoning: Margin fixes 'how much we keep' on every dollar. Growth multiplies whatever structure we already have (good or bad). Sequence usually: fix structural margin problems → then scale growth. Score subjectively based on quality of argument.",
+      "Facilitated debate, score manually based on reasoning.",
   },
   {
     id: 5,
     roundLabel: "Round 5",
-    title: "Gross margin benchmark (Closest to Pin)",
+    title: "What's a healthy gross margin% at scale?",
     type: "closest",
     prompt:
-      "What's a healthy gross margin for a ~$100M SaaS business, including usage-based components like ours?",
+      "For a ~$100M SaaS business, what is a healthy gross margin percentage?",
     hostNotes:
-      "75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 70-80.",
+      "Expected range is 70–80%. 75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 70-80.",
     correctAnswer: 75,
     expectedRange: { min: 70, max: 80 },
   },
@@ -126,21 +138,21 @@ export const QUESTIONS: Question[] = [
     title: "How much OpEx do efficient SaaS companies spend?",
     type: "closest",
     prompt:
-      "Think of a profitable $100M SaaS company. Based on known benchmarks, roughly what % of revenue do they spend on total operating expenses (S&M + R&D + G&A)?",
+      "If a profitable SaaS company makes $100M, what % should be spent on Operating Expenses (Sales & Marketing + R&D + G&A)?",
     hostNotes:
-      "75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 55-65.",
+      "Expected range is ~55–65%. 75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 55-65.",
     correctAnswer: 60,
     expectedRange: { min: 55, max: 65 },
   },
   {
     id: 7,
     roundLabel: "Round 7",
-    title: "What is the formula for Rule of 40, and what is this metric used for?",
+    title: "What is the Rule of 40?",
     type: "open",
     prompt:
-      "What is the formula for Rule of 40, and what is this metric used for?",
+      "What is the formula for Rule of 40, and what is this metric used for in SaaS?",
     hostNotes:
-      "Score based on understanding of the formula (growth rate + profit margin) and its use in evaluating SaaS company health.",
+      "The formula is revenue growth % + operating margin %. Score based on understanding of the formula and its use in evaluating SaaS company health.",
   },
   {
     id: 8,
@@ -148,9 +160,9 @@ export const QUESTIONS: Question[] = [
     title: "What's a healthy EBITDA margin at scale?",
     type: "closest",
     prompt:
-      "For a B2B SaaS business at scale, what's a healthy operating (EBITDA) margin range once you're running efficiently?",
+      "After paying all expenses, what EBITDA margin % is considered healthy for a scaled B2B SaaS business?",
     hostNotes:
-      "Expected range: 10–20. So anything in low-to-mid teens = 'good'; under 10 or over 25 is unrealistic for the use case you're teaching.",
+      "EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is profit after all operating expenses. Expected range: 10–20%. So anything in low-to-mid teens = 'good'; under 10 or over 25 is unrealistic for the use case you're teaching.",
     correctAnswer: 15,
     expectedRange: { min: 10, max: 20 },
   },
@@ -190,11 +202,12 @@ export const QUESTIONS: Question[] = [
     prompt:
       "Top 5 factors that influence our long-term revenue growth.",
     answers: [
-      { label: "Net revenue retention (renewals + expansion)", points: 50 },
-      { label: "New logo acquisition volume & ACV", points: 40 },
-      { label: "Product differentiation / category advantage", points: 20 },
-      { label: "Product expansion", points: 20 },
-      { label: "Sales execution (win rates, pipeline generation)", points: 20 },
+      { label: "Decrease churn and improve retention", points: 40 },
+      { label: "Expand existing customers via upsell/attach", points: 35 },
+      { label: "Acquire new customers in ICP", points: 30 },
+      { label: "Increase pipeline opportunities", points: 20 },
+      { label: "Improve product differentiation", points: 20 },
+      { label: "Improve sales execution including win rates and velocity", points: 15 },
     ] as SurveyAnswer[],
     hostNotes: "Feud-style scoring.",
   },
@@ -204,9 +217,9 @@ export const QUESTIONS: Question[] = [
     title: "ARR per employee benchmark",
     type: "closest",
     prompt:
-      "What's a healthy ARR (or net revenue) per employee benchmark for an efficient ~$100M SaaS company?",
+      "ARR = Annual Recurring Revenue. For an efficient ~$100M SaaS company, what is a healthy ARR (or net revenue) per employee?",
     hostNotes:
-      "75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 300,000–400,000.",
+      "ARR is Annual Recurring Revenue. Scaled benchmarks land around $300–350k per FTE. 75 points if exact, 50 points for closest if no one gets it exactly, 25 points if second closest answered inside 300,000–400,000.",
     correctAnswer: 350000,
     expectedRange: { min: 300000, max: 400000 },
   },
