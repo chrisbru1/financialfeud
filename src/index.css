@@ -1,3 +1,43 @@
+:root {
+  --color-primary: #5724E9;
+  --color-primary-dark: #2C1275;
+  --color-secondary-blue: #007AFF;
+  --color-secondary-teal: #23D1AB;
+  --color-success: #2DE34C;
+  --color-warning: #FFC300;
+  --color-danger: #FF2D55;
+  --color-accent-pink: #FF0099;
+  --color-accent-orange: #FF5C00;
+  --color-tint-primary: #C7B6F8;
+  --color-tint-blue: #99CAFF;
+  --color-tint-teal: #B5EFE3;
+  --color-tint-success: #96F1A6;
+  --color-tint-warning: #FFE180;
+  --color-tint-orange: #FFD6BF;
+  --color-tint-pink: #FFCBD5;
+  --color-tint-accent-pink: #FFBFE6;
+  --color-dark-blue: #004999;
+  --color-dark-teal: #147761;
+  --color-dark-success: #1C8E30;
+  --color-dark-warning: #BF9200;
+  --color-dark-orange: #AA3D00;
+  --color-dark-danger: #AA1E39;
+  --color-dark-pink: #AA0066;
+  --color-background-soft: #0B0B10;
+  --color-surface: rgba(199, 182, 248, 0.1);
+  --color-surface-elevated: rgba(199, 182, 248, 0.15);
+  --color-border-subtle: rgba(44, 18, 117, 0.3);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.9);
+  --color-text-tertiary: rgba(255, 255, 255, 0.7);
+  --color-team1: #007AFF;
+  --color-team1-tint: #99CAFF;
+  --color-team1-dark: #004999;
+  --color-team2: #23D1AB;
+  --color-team2-tint: #B5EFE3;
+  --color-team2-dark: #147761;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,9 +50,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-background-soft);
   min-height: 100vh;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 #root {

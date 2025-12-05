@@ -194,12 +194,11 @@ export const QUESTIONS: Question[] = [
     prompt:
       "Top 5 factors that influence our long-term revenue growth.",
     answers: [
-      { label: "Decrease churn and improve retention", points: 40 },
-      { label: "Expand existing customers via upsell/attach", points: 35 },
-      { label: "Acquire new customers in ICP", points: 30 },
-      { label: "Increase pipeline opportunities", points: 20 },
-      { label: "Improve product differentiation", points: 20 },
-      { label: "Improve sales execution including win rates and velocity", points: 15 },
+      { label: "Net revenue retention (renewals + expansion)", points: 50 },
+      { label: "New logo acquisition volume & ACV", points: 40 },
+      { label: "Product differentiation / category advantage", points: 20 },
+      { label: "Product expansion", points: 20 },
+      { label: "Sales execution (win rates, pipeline generation)", points: 20 },
     ] as SurveyAnswer[],
     hostNotes: "Feud-style scoring.",
   },

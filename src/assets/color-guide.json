@@ -1,0 +1,148 @@
+{
+  "tier1": {
+    "name": "Primary/Brand Colors",
+    "description": "Main brand colors used for primary actions, CTAs, and key UI elements",
+    "colors": {
+      "secondaryBlue": {
+        "hex": "#007AFF",
+        "name": "Secondary Blue",
+        "usage": "Team 1, secondary buttons, badges"
+      },
+      "secondaryTeal": {
+        "hex": "#23D1AB",
+        "name": "Secondary Teal",
+        "usage": "Team 2, secondary actions"
+      },
+      "success": {
+        "hex": "#2DE34C",
+        "name": "Success Green",
+        "usage": "Correct answers, success states"
+      },
+      "warning": {
+        "hex": "#FFC300",
+        "name": "Warning Yellow",
+        "usage": "Warnings, near-miss states"
+      },
+      "accentOrange": {
+        "hex": "#FF5C00",
+        "name": "Accent Orange",
+        "usage": "Accent elements, highlights"
+      },
+      "danger": {
+        "hex": "#FF2D55",
+        "name": "Danger Red",
+        "usage": "Errors, strikes, incorrect states"
+      },
+      "accentPink": {
+        "hex": "#FF0099",
+        "name": "Accent Pink",
+        "usage": "Accent elements, special highlights"
+      },
+      "primary": {
+        "hex": "#5724E9",
+        "name": "Primary Purple",
+        "usage": "Primary brand color, buttons, highlights"
+      }
+    }
+  },
+  "tier2": {
+    "name": "Tints",
+    "description": "Lighter versions used for backgrounds, cards, chips, and subtle accents",
+    "colors": {
+      "tintBlue": {
+        "hex": "#99CAFF",
+        "name": "Blue Tint",
+        "usage": "Team 1 backgrounds, soft accents"
+      },
+      "tintTeal": {
+        "hex": "#B5EFE3",
+        "name": "Teal Tint",
+        "usage": "Team 2 backgrounds, soft accents"
+      },
+      "tintSuccess": {
+        "hex": "#96F1A6",
+        "name": "Success Tint",
+        "usage": "Success backgrounds, light accents"
+      },
+      "tintWarning": {
+        "hex": "#FFE180",
+        "name": "Warning Tint",
+        "usage": "Warning backgrounds, light accents"
+      },
+      "tintOrange": {
+        "hex": "#FFD6BF",
+        "name": "Orange Tint",
+        "usage": "Orange backgrounds, light accents"
+      },
+      "tintPink": {
+        "hex": "#FFCBD5",
+        "name": "Pink Tint",
+        "usage": "Pink backgrounds, light accents"
+      },
+      "tintAccentPink": {
+        "hex": "#FFBFE6",
+        "name": "Accent Pink Tint",
+        "usage": "Accent pink backgrounds"
+      },
+      "tintPrimary": {
+        "hex": "#C7B6F8",
+        "name": "Primary Tint",
+        "usage": "Primary purple backgrounds, cards, panels"
+      }
+    }
+  },
+  "tier3": {
+    "name": "Dark Bases",
+    "description": "Darker versions used sparingly for borders, text accents, and high-contrast states",
+    "colors": {
+      "darkBlue": {
+        "hex": "#004999",
+        "name": "Dark Blue",
+        "usage": "Team 1 dark accent, hover states"
+      },
+      "darkTeal": {
+        "hex": "#147761",
+        "name": "Dark Teal",
+        "usage": "Team 2 dark accent, hover states"
+      },
+      "darkSuccess": {
+        "hex": "#1C8E30",
+        "name": "Dark Success",
+        "usage": "Success dark accent"
+      },
+      "darkWarning": {
+        "hex": "#BF9200",
+        "name": "Dark Warning",
+        "usage": "Warning dark accent"
+      },
+      "darkOrange": {
+        "hex": "#AA3D00",
+        "name": "Dark Orange",
+        "usage": "Orange dark accent, hover states"
+      },
+      "darkDanger": {
+        "hex": "#AA1E39",
+        "name": "Dark Danger",
+        "usage": "Danger dark accent, hover states"
+      },
+      "darkPink": {
+        "hex": "#AA0066",
+        "name": "Dark Pink",
+        "usage": "Accent pink dark accent"
+      },
+      "darkPrimary": {
+        "hex": "#2C1275",
+        "name": "Dark Primary",
+        "usage": "Primary dark accent, hover states, borders"
+      }
+    }
+  },
+  "background": {
+    "soft": {
+      "hex": "#0B0B10",
+      "name": "Background Soft",
+      "usage": "Very dark neutral background (similar to postscript.io)"
+    }
+  }
+}
+

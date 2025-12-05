@@ -1,0 +1,92 @@
+<svg width="300" height="229" viewBox="0 0 300 229" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BODY -->
+  <g id="body">
+    <path d="M300 114.607C300 139 293.893 228.143 150 228.143C108.964 228.143 0 228.571 0 228.571V114.607C0 46.357 55.1071 0 150 0C232.857 0 300 33.8927 300 114.607Z" fill="#5724E9"/>
+  </g>
+  
+  <!-- EYES -->
+  <g id="eyes">
+    <ellipse cx="109.44" cy="82.5001" rx="22.4398" ry="47.2669" fill="white"/>
+    <ellipse cx="189.56" cy="82.5001" rx="22.4398" ry="47.2669" fill="white"/>
+  </g>
+
+  <!-- MOUTH (subtle curved smile) -->
+  <g id="mouth">
+    <path d="M120 145
+             Q150 170 210 145"
+          fill="none"
+          stroke="#2C1275"
+          stroke-width="4"
+          stroke-linecap="round" />
+  </g>
+
+  <!-- TONGUE -->
+  <g id="tongue">
+    <!-- Sticking-out tongue with curved tip, brand green -->
+    <path d="
+      M145 147
+      Q150 155 155 147
+      L190 147
+      Q192 185 174 205
+      Q160 219 146 205
+      Q128 185 130 147
+      Z"
+      fill="#2DE34C" />
+
+    <!-- Slight inner curve for a hint of form (still flat/vector) -->
+    <path d="M138 152
+             Q160 168 182 152"
+          fill="none"
+          stroke="#96F1A6"
+          stroke-width="3"
+          stroke-linecap="round"
+          opacity="0.7" />
+  </g>
+
+  <!-- MONEY ICON ($ on tongue) -->
+  <g id="money-icon">
+    <!-- Darker green "shadow" for a light embossed feel -->
+    <text x="160" y="181"
+          text-anchor="middle"
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+          font-size="26"
+          fill="#147761"
+          opacity="0.85">
+      $
+    </text>
+
+    <!-- Main white dollar sign slightly up/left -->
+    <text x="158" y="179"
+          text-anchor="middle"
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+          font-size="26"
+          fill="#FFFFFF">
+      $
+    </text>
+  </g>
+
+  <!-- HIGHLIGHTS / SPARK ACCENTS -->
+  <g id="highlights">
+    <!-- Small spark near top-right of Bub -->
+    <path d="M245 55
+             L249 65
+             L259 69
+             L249 73
+             L245 83
+             L241 73
+             L231 69
+             L241 65
+             Z"
+          fill="#FFFFFF"
+          opacity="0.9" />
+
+    <!-- Tiny highlight on upper-left body curve -->
+    <path d="M60 55
+             Q85 40 110 45"
+          fill="none"
+          stroke="#B5EFE3"
+          stroke-width="4"
+          stroke-linecap="round"
+          opacity="0.7" />
+  </g>
+</svg>

@@ -1,22 +1,23 @@
 .closest-answer-board {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+  border: 2px solid var(--color-border-subtle);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .closest-instructions {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 30px;
-  color: #ffd700;
+  margin-bottom: 15px;
+  color: var(--color-primary);
 }
 
 .closest-inputs {
   display: flex;
-  gap: 30px;
+  gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -26,41 +27,42 @@
   min-width: 250px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  gap: 10px;
+  padding: 12px;
+  background: var(--color-surface-elevated);
+  border-radius: 10px;
+  border: 2px solid var(--color-border-subtle);
   transition: all 0.3s ease;
 }
 
 .closest-input-group.active {
-  border-color: #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(87, 36, 233, 0.4);
+  background: var(--color-surface-elevated);
 }
 
 .closest-input-group label {
   font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
+  color: var(--color-text-primary);
 }
 
 .closest-input-group input {
-  padding: 15px;
-  font-size: 1.5rem;
+  padding: 10px;
+  font-size: 1.2rem;
   text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--color-border-subtle);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   font-weight: bold;
 }
 
 .closest-input-group input:focus {
   outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px rgba(87, 36, 233, 0.3);
 }
 
 .closest-input-group input:disabled {
@@ -69,7 +71,7 @@
 }
 
 .closest-input-group input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-tertiary);
 }
 
 .score-btn {
@@ -77,8 +79,8 @@
   font-size: 1.1rem;
   font-weight: bold;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  border-radius: 12px;
+  background: var(--color-primary);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -86,12 +88,13 @@
 }
 
 .score-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 6px 20px rgba(87, 36, 233, 0.4);
 }
 
 .score-btn:disabled {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-surface-elevated);
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -99,22 +102,52 @@
 .points-preview {
   text-align: center;
   font-size: 0.95rem;
-  color: #ffd700;
+  color: var(--color-warning);
   font-weight: bold;
   padding: 8px;
-  background: rgba(255, 215, 0, 0.1);
+  background: rgba(255, 195, 0, 0.15);
   border-radius: 8px;
 }
 
 .points-awarded {
   text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-success);
+  padding: 8px;
+  background: rgba(45, 227, 76, 0.15);
+  border-radius: 10px;
+  border: 2px solid var(--color-success);
+}
+
+.closest-submit-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.submit-btn {
+  padding: 12px 40px;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #4caf50;
-  padding: 12px;
-  background: rgba(76, 175, 80, 0.2);
-  border-radius: 10px;
-  border: 2px solid #4caf50;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(87, 36, 233, 0.4);
+}
+
+.submit-btn:disabled {
+  background: var(--color-surface-elevated);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {

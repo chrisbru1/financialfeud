@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import MoneyBub from '../assets/brand/MoneyBub-removebg.png'
 import './IntroScreen.css'
 
 interface IntroScreenProps {
@@ -19,7 +20,8 @@ function IntroScreen({ onStart }: IntroScreenProps) {
     <div className="intro-screen">
       <div className="intro-content">
         <div className="intro-header">
-          <h1 className="intro-title">💰 Financial Feud 💰</h1>
+          <img src={MoneyBub} alt="Money Bub" className="intro-logo" />
+          <h1 className="intro-title">Financial Feud</h1>
           <p className="intro-subtitle">Welcome to the gameshow!</p>
         </div>
         

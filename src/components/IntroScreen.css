@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-background-soft);
   padding: 20px;
   animation: fadeIn 0.5s ease;
 }
@@ -18,11 +18,11 @@
 }
 
 .intro-content {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-surface);
   backdrop-filter: blur(20px);
-  border-radius: 30px;
-  padding: 60px 40px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 30px 25px;
+  border: 2px solid var(--color-border-subtle);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   max-width: 600px;
   width: 100%;
@@ -30,16 +30,30 @@
 }
 
 .intro-header {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.intro-logo {
+  height: 80px;
+  width: auto;
+  flex-shrink: 0;
 }
 
 .intro-title {
-  font-size: 4.5rem;
+  font-size: 3rem;
   font-weight: bold;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-  letter-spacing: 2px;
-  margin: 0 0 20px 0;
-  color: #fff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  margin: 0 0 15px 0;
+  color: var(--color-text-primary);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   animation: titlePulse 2s infinite;
 }
 
@@ -53,8 +67,8 @@
 }
 
 .intro-subtitle {
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
   margin: 0;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -62,8 +76,8 @@
 .team-naming {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  margin-bottom: 40px;
+  gap: 20px;
+  margin-bottom: 25px;
 }
 
 .team-input-group {
@@ -75,21 +89,21 @@
 .team-input-group label {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #ffd700;
+  color: var(--color-primary);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .team-input {
-  padding: 20px;
-  font-size: 1.5rem;
+  padding: 12px;
+  font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  border: 2px solid var(--color-border-subtle);
+  border-radius: 12px;
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -97,14 +111,14 @@
 
 .team-input:focus {
   outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-  background: rgba(255, 255, 255, 0.3);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(87, 36, 233, 0.4);
+  background: var(--color-surface-elevated);
   transform: scale(1.02);
 }
 
 .team-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-tertiary);
   text-transform: none;
   letter-spacing: normal;
 }
@@ -112,7 +126,7 @@
 .vs-divider {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #ffd700;
+  color: var(--color-primary);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin: -10px 0;
   position: relative;
@@ -125,7 +139,7 @@
   top: 50%;
   width: 100px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
 }
 
 .vs-divider::before {
@@ -137,24 +151,25 @@
 }
 
 .start-button {
-  padding: 20px 60px;
-  font-size: 1.5rem;
+  padding: 15px 40px;
+  font-size: 1.1rem;
   font-weight: bold;
   border: none;
-  border-radius: 15px;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  border-radius: 12px;
+  background: var(--color-primary);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
-  min-width: 250px;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 25px rgba(87, 36, 233, 0.4);
+  min-width: 200px;
 }
 
 .start-button:hover:not(:disabled) {
+  background: var(--color-primary-dark);
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.6);
+  box-shadow: 0 12px 35px rgba(87, 36, 233, 0.6);
 }
 
 .start-button:active:not(:disabled) {
@@ -170,6 +185,10 @@
 @media (max-width: 768px) {
   .intro-content {
     padding: 40px 25px;
+  }
+  
+  .intro-logo {
+    height: 90px;
   }
   
   .intro-title {

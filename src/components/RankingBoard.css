@@ -1,9 +1,10 @@
 .ranking-board {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--color-border-subtle);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .ranking-instructions {
@@ -11,7 +12,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #ffd700;
+  color: var(--color-primary);
 }
 
 .ranking-container {
@@ -22,22 +23,22 @@
 }
 
 .ranking-section {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
+  background: var(--color-surface-elevated);
+  border-radius: 12px;
   padding: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--color-border-subtle);
   transition: all 0.3s ease;
 }
 
 .ranking-section.active {
-  border-color: #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(87, 36, 233, 0.4);
+  background: var(--color-surface-elevated);
 }
 
 .ranking-section.scored {
-  border-color: #4caf50;
-  background: rgba(76, 175, 80, 0.1);
+  border-color: var(--color-success);
+  background: rgba(45, 227, 76, 0.1);
 }
 
 .ranking-header {
@@ -53,13 +54,13 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;
-  color: #ffd700;
+  color: var(--color-primary);
 }
 
 .ranking-score {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #4caf50;
+  color: var(--color-success);
 }
 
 .ranking-list {
@@ -74,16 +75,17 @@
   align-items: center;
   gap: 15px;
   padding: 15px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: var(--color-surface);
+  border-radius: 12px;
+  border: 2px solid var(--color-border-subtle);
   cursor: move;
   transition: all 0.3s ease;
   position: relative;
 }
 
 .ranking-item:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--color-surface-elevated);
+  border-color: var(--color-tint-primary);
   transform: translateX(5px);
 }
 
@@ -92,13 +94,13 @@
 }
 
 .ranking-item.correct-position {
-  background: rgba(76, 175, 80, 0.3);
-  border-color: #4caf50;
+  background: rgba(45, 227, 76, 0.2);
+  border-color: var(--color-success);
 }
 
 .ranking-item.incorrect-position {
-  background: rgba(244, 67, 54, 0.2);
-  border-color: #f44336;
+  background: rgba(255, 45, 85, 0.2);
+  border-color: var(--color-danger);
 }
 
 .ranking-position {
@@ -107,12 +109,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 215, 0, 0.3);
+  background: rgba(87, 36, 233, 0.2);
   border-radius: 50%;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffd700;
-  border: 2px solid #ffd700;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .ranking-content {
@@ -125,7 +127,7 @@
 .ranking-label {
   font-size: 1.1rem;
   font-weight: bold;
-  color: white;
+  color: var(--color-text-primary);
 }
 
 .ranking-feedback {
@@ -133,12 +135,12 @@
 }
 
 .correct-indicator {
-  color: #4caf50;
+  color: var(--color-success);
   font-weight: bold;
 }
 
 .incorrect-indicator {
-  color: #f44336;
+  color: var(--color-danger);
   font-style: italic;
 }
 
@@ -159,8 +161,8 @@
   font-size: 1.1rem;
   font-weight: bold;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  border-radius: 12px;
+  background: var(--color-primary);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -169,12 +171,13 @@
 }
 
 .score-ranking-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 6px 20px rgba(87, 36, 233, 0.4);
 }
 
 .score-ranking-btn:disabled {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-surface-elevated);
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -182,15 +185,15 @@
 .correct-order-reveal {
   margin-top: 30px;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 15px;
-  border: 2px solid #4caf50;
+  background: var(--color-surface);
+  border-radius: 12px;
+  border: 2px solid var(--color-success);
 }
 
 .correct-order-reveal h4 {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #4caf50;
+  color: var(--color-success);
   margin: 0 0 15px 0;
   text-align: center;
 }
@@ -206,7 +209,7 @@
   align-items: center;
   gap: 15px;
   padding: 12px;
-  background: rgba(76, 175, 80, 0.2);
+  background: rgba(45, 227, 76, 0.15);
   border-radius: 8px;
 }
 
@@ -216,7 +219,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #4caf50;
+  background: var(--color-success);
   border-radius: 50%;
   font-size: 1.1rem;
   font-weight: bold;
@@ -227,13 +230,13 @@
   flex: 1;
   font-size: 1rem;
   font-weight: bold;
-  color: white;
+  color: var(--color-text-primary);
 }
 
 .correct-order-points {
   font-size: 1rem;
   font-weight: bold;
-  color: #ffd700;
+  color: var(--color-warning);
 }
 
 @media (max-width: 768px) {

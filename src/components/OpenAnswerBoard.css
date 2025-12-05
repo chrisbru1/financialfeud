@@ -1,9 +1,10 @@
 .open-answer-board {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--color-border-subtle);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .open-instructions {
@@ -11,7 +12,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #ffd700;
+  color: var(--color-primary);
 }
 
 .open-inputs {
@@ -28,39 +29,40 @@
   flex-direction: column;
   gap: 15px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-surface-elevated);
+  border-radius: 12px;
+  border: 2px solid var(--color-border-subtle);
   transition: all 0.3s ease;
 }
 
 .open-input-group.active {
-  border-color: #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(87, 36, 233, 0.4);
+  background: var(--color-surface-elevated);
 }
 
 .open-input-group label {
   font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
+  color: var(--color-text-primary);
 }
 
 .open-input-group textarea {
   padding: 15px;
   font-size: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  border: 2px solid var(--color-border-subtle);
+  border-radius: 12px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   resize: vertical;
   font-family: inherit;
 }
 
 .open-input-group textarea:focus {
   outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px rgba(87, 36, 233, 0.3);
 }
 
 .open-input-group textarea:disabled {
@@ -69,7 +71,7 @@
 }
 
 .open-input-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-tertiary);
 }
 
 .open-scoring {
@@ -83,23 +85,23 @@
   padding: 10px;
   font-size: 1rem;
   text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  border: 2px solid var(--color-border-subtle);
+  border-radius: 12px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   font-weight: bold;
 }
 
 .points-input:focus {
   outline: none;
-  border-color: #ffd700;
+  border-color: var(--color-primary);
 }
 
 .points-awarded {
   text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffd700;
+  color: var(--color-success);
   padding: 10px;
 }
 
@@ -108,8 +110,8 @@
   font-size: 1rem;
   font-weight: bold;
   border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  border-radius: 12px;
+  background: var(--color-primary);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -117,12 +119,13 @@
 }
 
 .score-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 6px 20px rgba(87, 36, 233, 0.4);
 }
 
 .score-btn:disabled {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-surface-elevated);
   cursor: not-allowed;
   opacity: 0.6;
 }

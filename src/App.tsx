@@ -11,7 +11,9 @@ import LightningAnswerBoard from './components/LightningAnswerBoard'
 import RankingBoard from './components/RankingBoard'
 import ControlPanel from './components/ControlPanel'
 import IntroScreen from './components/IntroScreen'
+import EndScreen from './components/EndScreen'
 import { QUESTIONS, Question } from './data/questions'
+import MoneyBub from './assets/brand/MoneyBub-removebg.png'
 import './App.css'
 
 function App() {
@@ -22,7 +24,8 @@ function App() {
   const [team2Score, setTeam2Score] = useState(0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState<Question>(QUESTIONS[0])
-  const [activeTeam, setActiveTeam] = useState<1 | 2>(1)
+  // Randomize starting team (1 or 2)
+  const [activeTeam, setActiveTeam] = useState<1 | 2>(Math.random() < 0.5 ? 1 : 2)
   const [strikes, setStrikes] = useState(0)
   
   // State for different question types
@@ -30,6 +33,7 @@ function App() {
   const [team1SelectedIndex, setTeam1SelectedIndex] = useState<number | null>(null)
   const [team2SelectedIndex, setTeam2SelectedIndex] = useState<number | null>(null)
   const [multiShowResult, setMultiShowResult] = useState(false)
+  const [showEndScreen, setShowEndScreen] = useState(false)
 
   const handleScore = (team: 1 | 2, points: number) => {
     if (team === 1) {
@@ -91,6 +95,12 @@ function App() {
   }
 
   const nextQuestion = () => {
+    // If we're on the last question (Round 14), end the game
+    if (currentQuestion.id === 14) {
+      setShowEndScreen(true)
+      return
+    }
+    
     const nextIndex = (currentQuestionIndex + 1) % QUESTIONS.length
     setCurrentQuestionIndex(nextIndex)
     setCurrentQuestion(QUESTIONS[nextIndex])
@@ -104,6 +114,8 @@ function App() {
   const handleStartGame = (name1: string, name2: string) => {
     setTeam1Name(name1)
     setTeam2Name(name2)
+    // Randomize starting team when game starts
+    setActiveTeam(Math.random() < 0.5 ? 1 : 2)
     setShowIntro(false)
   }
 
@@ -112,12 +124,25 @@ function App() {
     setTeam2Score(0)
     setCurrentQuestionIndex(0)
     setCurrentQuestion(QUESTIONS[0])
-    setActiveTeam(1)
+    // Randomize starting team on reset
+    setActiveTeam(Math.random() < 0.5 ? 1 : 2)
     setStrikes(0)
     setRevealedIndices(new Set())
     setTeam1SelectedIndex(null)
     setTeam2SelectedIndex(null)
     setMultiShowResult(false)
+    setShowEndScreen(false)
+  }
+
+  const handlePlayAgain = () => {
+    resetGame()
+    setShowEndScreen(false)
+  }
+
+  const handleNewGame = () => {
+    resetGame()
+    setShowIntro(true)
+    setShowEndScreen(false)
   }
 
   const goToIntro = () => {
@@ -155,6 +180,8 @@ function App() {
       case 'closest':
         return (
           <ClosestAnswerBoard
+            key={currentQuestion.id}
+            questionId={currentQuestion.id}
             correctAnswer={currentQuestion.correctAnswer}
             expectedRange={currentQuestion.expectedRange}
             onScore={handleScore}
@@ -185,11 +212,22 @@ function App() {
                     padding: '15px 30px',
                     fontSize: '1.2rem',
                     fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #4caf50, #388e3c)',
+                    background: 'var(--color-primary)',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '10px',
+                    borderRadius: '12px',
                     cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--color-primary-dark)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(87, 36, 233, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'var(--color-primary)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   Reveal Answers
@@ -197,7 +235,7 @@ function App() {
               </div>
             )}
             {((team1SelectedIndex === null || team2SelectedIndex === null) && !multiShowResult) && (
-              <div style={{ textAlign: 'center', marginTop: '20px', color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.1rem' }}>
+              <div style={{ textAlign: 'center', marginTop: '20px', color: 'var(--color-text-tertiary)', fontSize: '1.1rem' }}>
                 {team1SelectedIndex === null && `Waiting for ${team1Name} to select...`}
                 {team1SelectedIndex !== null && team2SelectedIndex === null && `Waiting for ${team2Name} to select...`}
               </div>
@@ -235,10 +273,27 @@ function App() {
     return <IntroScreen onStart={handleStartGame} />
   }
 
+  if (showEndScreen) {
+    return (
+      <EndScreen
+        team1Name={team1Name}
+        team2Name={team2Name}
+        team1Score={team1Score}
+        team2Score={team2Score}
+        onPlayAgain={handlePlayAgain}
+        onNewGame={handleNewGame}
+      />
+    )
+  }
+
   return (
     <div className="app">
       <header className="app-header">
-        <h1>💰 Financial Feud 💰</h1>
+        <div className="header-content">
+          <img src={MoneyBub} alt="Money Bub" className="header-logo" />
+          <h1>Financial Feud</h1>
+          <img src={MoneyBub} alt="Money Bub" className="header-logo" />
+        </div>
       </header>
       <GameBoard>
         <ScoreBoard 
@@ -262,6 +317,7 @@ function App() {
           onReset={resetGame}
           onSwitchTeam={() => setActiveTeam(activeTeam === 1 ? 2 : 1)}
           onGoToIntro={goToIntro}
+          isLastQuestion={currentQuestion.id === 14}
         />
       </GameBoard>
     </div>

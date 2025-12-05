@@ -1,10 +1,11 @@
 .answer-input-container {
   margin: 30px 0;
   padding: 25px;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
-  border-radius: 15px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  border: 2px solid var(--color-border-subtle);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .answer-input-form {
@@ -26,34 +27,34 @@
   width: 100%;
   padding: 15px 40px 15px 20px;
   font-size: 1.2rem;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  border: 2px solid var(--color-border-subtle);
+  border-radius: 12px;
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
   font-weight: 500;
   transition: all 0.3s ease;
 }
 
 .answer-input:focus {
   outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-  background: rgba(255, 255, 255, 0.25);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px rgba(87, 36, 233, 0.4);
+  background: var(--color-surface-elevated);
 }
 
 .answer-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-tertiary);
 }
 
 .clear-button {
   position: absolute;
   right: 10px;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--color-surface-elevated);
   border: none;
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  color: white;
+  color: var(--color-text-primary);
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
@@ -64,7 +65,7 @@
 }
 
 .clear-button:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--color-tint-primary);
   transform: scale(1.1);
 }
 
@@ -73,8 +74,8 @@
   font-size: 1.1rem;
   font-weight: bold;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  border-radius: 12px;
+  background: var(--color-primary);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -84,8 +85,9 @@
 }
 
 .submit-button:hover:not(:disabled) {
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 6px 20px rgba(87, 36, 233, 0.4);
 }
 
 .submit-button:disabled {
@@ -115,15 +117,15 @@
 }
 
 .feedback-message.success {
-  background: rgba(76, 175, 80, 0.3);
-  border: 2px solid #4caf50;
-  color: #4caf50;
+  background: rgba(45, 227, 76, 0.15);
+  border: 2px solid var(--color-success);
+  color: var(--color-success);
 }
 
 .feedback-message.error {
-  background: rgba(244, 67, 54, 0.3);
-  border: 2px solid #f44336;
-  color: #f44336;
+  background: rgba(255, 45, 85, 0.15);
+  border: 2px solid var(--color-danger);
+  color: var(--color-danger);
 }
 
 @media (max-width: 768px) {

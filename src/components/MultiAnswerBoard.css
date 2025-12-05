@@ -6,11 +6,11 @@
 }
 
 .multi-answer-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
-  border-radius: 15px;
+  border-radius: 16px;
   padding: 25px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--color-border-subtle);
   transition: all 0.3s ease;
   cursor: pointer;
   min-height: 100px;
@@ -18,45 +18,47 @@
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .multi-answer-card:hover:not(.selected):not(.correct):not(.incorrect) {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--color-surface-elevated);
+  border-color: var(--color-tint-primary);
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 25px rgba(87, 36, 233, 0.3);
 }
 
 .multi-answer-card.team1-selected {
-  background: rgba(33, 150, 243, 0.3);
-  border-color: #2196f3;
-  box-shadow: 0 0 20px rgba(33, 150, 243, 0.4);
-  border-left: 5px solid #2196f3;
+  background: rgba(0, 122, 255, 0.2);
+  border-color: var(--color-team1);
+  box-shadow: 0 0 20px rgba(0, 122, 255, 0.4);
+  border-left: 5px solid var(--color-team1);
 }
 
 .multi-answer-card.team2-selected {
-  background: rgba(156, 39, 176, 0.3);
-  border-color: #9c27b0;
-  box-shadow: 0 0 20px rgba(156, 39, 176, 0.4);
-  border-right: 5px solid #9c27b0;
+  background: rgba(35, 209, 171, 0.2);
+  border-color: var(--color-team2);
+  box-shadow: 0 0 20px rgba(35, 209, 171, 0.4);
+  border-right: 5px solid var(--color-team2);
 }
 
 .multi-answer-card.team1-selected.team2-selected {
-  background: linear-gradient(135deg, rgba(33, 150, 243, 0.3), rgba(156, 39, 176, 0.3));
-  border-left: 5px solid #2196f3;
-  border-right: 5px solid #9c27b0;
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.2), rgba(35, 209, 171, 0.2));
+  border-left: 5px solid var(--color-team1);
+  border-right: 5px solid var(--color-team2);
 }
 
 .multi-answer-card.correct {
-  background: rgba(76, 175, 80, 0.4);
-  border-color: #4caf50;
-  box-shadow: 0 0 30px rgba(76, 175, 80, 0.6);
+  background: rgba(45, 227, 76, 0.2);
+  border-color: var(--color-success);
+  box-shadow: 0 0 30px rgba(45, 227, 76, 0.4);
   cursor: default;
 }
 
 .multi-answer-card.incorrect {
-  background: rgba(244, 67, 54, 0.4);
-  border-color: #f44336;
-  box-shadow: 0 0 30px rgba(244, 67, 54, 0.6);
+  background: rgba(255, 45, 85, 0.2);
+  border-color: var(--color-danger);
+  box-shadow: 0 0 30px rgba(255, 45, 85, 0.4);
   cursor: default;
 }
 
@@ -65,6 +67,7 @@
   font-weight: bold;
   text-align: center;
   line-height: 1.4;
+  color: var(--color-text-primary);
 }
 
 .multi-answer-result {
@@ -75,11 +78,11 @@
 }
 
 .multi-answer-card.correct .multi-answer-result {
-  color: #4caf50;
+  color: var(--color-success);
 }
 
 .multi-answer-card.incorrect .multi-answer-result {
-  color: #f44336;
+  color: var(--color-danger);
 }
 
 .multi-answer-selections {
@@ -91,19 +94,19 @@
 }
 
 .team1-badge {
-  background: rgba(33, 150, 243, 0.8);
+  background: var(--color-team1);
   color: white;
   padding: 5px 12px;
-  border-radius: 15px;
+  border-radius: 12px;
   font-size: 0.9rem;
   font-weight: bold;
 }
 
 .team2-badge {
-  background: rgba(156, 39, 176, 0.8);
+  background: var(--color-team2);
   color: white;
   padding: 5px 12px;
-  border-radius: 15px;
+  border-radius: 12px;
   font-size: 0.9rem;
   font-weight: bold;
 }
@@ -117,7 +120,7 @@
 }
 
 .correct-teams span {
-  color: #4caf50;
+  color: var(--color-success);
   font-weight: bold;
 }
 

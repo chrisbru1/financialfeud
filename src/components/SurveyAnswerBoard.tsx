@@ -1,5 +1,4 @@
 import { SurveyAnswer } from '../data/questions'
-import AnswerInput from './AnswerInput'
 import './AnswerBoard.css'
 
 interface SurveyAnswerBoardProps {
@@ -11,19 +10,9 @@ interface SurveyAnswerBoardProps {
   activeTeamName: string
 }
 
-function SurveyAnswerBoard({ answers, revealedIndices, onReveal, onStrike, activeTeamName }: SurveyAnswerBoardProps) {
-  const answerLabels = answers.map(a => a.label)
-  
+function SurveyAnswerBoard({ answers, revealedIndices, onReveal }: SurveyAnswerBoardProps) {
   return (
-    <>
-      <AnswerInput
-        answers={answerLabels}
-        revealedIndices={revealedIndices}
-        onReveal={onReveal}
-        onStrike={onStrike}
-        activeTeamName={activeTeamName}
-      />
-      <div className="answer-board">
+    <div className="answer-board">
         {answers.map((answer, index) => {
           const isRevealed = revealedIndices.has(index)
           return (
@@ -46,8 +35,7 @@ function SurveyAnswerBoard({ answers, revealedIndices, onReveal, onStrike, activ
             </div>
           )
         })}
-      </div>
-    </>
+    </div>
   )
 }
 

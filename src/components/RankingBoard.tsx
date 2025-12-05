@@ -10,9 +10,20 @@ interface RankingBoardProps {
   onScore: (team: 1 | 2, points: number) => void
 }
 
+// Helper function to shuffle array
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: RankingBoardProps) {
-  const [team1Ranking, setTeam1Ranking] = useState<number[]>(answers.map((_, i) => i))
-  const [team2Ranking, setTeam2Ranking] = useState<number[]>(answers.map((_, i) => i))
+  // Randomize initial order for both teams
+  const [team1Ranking, setTeam1Ranking] = useState<number[]>(() => shuffleArray(answers.map((_, i) => i)))
+  const [team2Ranking, setTeam2Ranking] = useState<number[]>(() => shuffleArray(answers.map((_, i) => i)))
   const [team1Scored, setTeam1Scored] = useState(false)
   const [team2Scored, setTeam2Scored] = useState(false)
   const [showResults, setShowResults] = useState(false)
@@ -144,7 +155,6 @@ function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: Ra
           <button
             onClick={() => handleScore(team)}
             className="score-ranking-btn"
-            disabled={!isActive}
           >
             Score {teamName}
           </button>

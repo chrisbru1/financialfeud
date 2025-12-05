@@ -1,24 +1,28 @@
 .control-panel {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+  border: 2px solid var(--color-border-subtle);
   display: flex;
-  flex-direction: column;
-  gap: 25px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
   align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .strikes-display {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .strikes-label {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: bold;
+  color: var(--color-text-primary);
 }
 
 .strikes-indicator {
@@ -27,25 +31,25 @@
 }
 
 .strike {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  background: var(--color-surface-elevated);
+  border: 2px solid var(--color-border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.5rem;
+  color: var(--color-text-tertiary);
   transition: all 0.3s ease;
 }
 
 .strike.active {
-  background: rgba(244, 67, 54, 0.8);
-  border-color: #f44336;
+  background: var(--color-danger);
+  border-color: var(--color-danger);
   color: white;
   transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(244, 67, 54, 0.6);
+  box-shadow: 0 0 20px rgba(255, 45, 85, 0.6);
 }
 
 .control-buttons {
@@ -56,21 +60,22 @@
 }
 
 .btn {
-  padding: 15px 30px;
-  font-size: 1.1rem;
+  padding: 10px 20px;
+  font-size: 0.9rem;
   font-weight: bold;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: white;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .btn:active {
@@ -78,28 +83,48 @@
 }
 
 .btn-strike {
-  background: linear-gradient(135deg, #f44336, #d32f2f);
+  background: var(--color-danger);
   color: white;
+}
+
+.btn-strike:hover {
+  background: var(--color-dark-danger);
 }
 
 .btn-switch {
-  background: linear-gradient(135deg, #2196f3, #1976d2);
+  background: var(--color-secondary-blue);
   color: white;
+}
+
+.btn-switch:hover {
+  background: var(--color-dark-blue);
 }
 
 .btn-next {
-  background: linear-gradient(135deg, #4caf50, #388e3c);
+  background: var(--color-primary);
   color: white;
+}
+
+.btn-next:hover {
+  background: var(--color-primary-dark);
 }
 
 .btn-reset {
-  background: linear-gradient(135deg, #ff9800, #f57c00);
+  background: var(--color-accent-orange);
   color: white;
 }
 
+.btn-reset:hover {
+  background: var(--color-dark-orange);
+}
+
 .btn-intro {
-  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  background: var(--color-primary);
   color: white;
+}
+
+.btn-intro:hover {
+  background: var(--color-primary-dark);
 }
 
 @media (max-width: 768px) {
