@@ -1,8 +1,8 @@
 .score-board {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   justify-content: center;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .team-score {
@@ -10,30 +10,30 @@
   max-width: 400px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: 20px;
+  padding: 30px;
   text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
 
 .team-score.active {
   background: rgba(255, 255, 255, 0.25);
   border-color: #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  transform: scale(1.05);
 }
 
 .team-label {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .score-value {
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-weight: bold;
   color: #ffd700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);

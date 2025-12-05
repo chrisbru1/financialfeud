@@ -1,35 +1,35 @@
 .question-display {
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 15px;
+  border-radius: 20px;
+  padding: 40px;
   text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .round-label {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #ffd700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 5px;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .question-title {
-  font-size: 1.4rem;
+  font-size: 2.2rem;
   font-weight: bold;
-  line-height: 1.2;
-  margin-bottom: 8px;
+  line-height: 1.3;
+  margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   color: #fff;
 }
 
 .question-prompt {
-  font-size: 1.1rem;
-  line-height: 1.3;
+  font-size: 1.5rem;
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }

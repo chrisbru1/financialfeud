@@ -10,20 +10,9 @@ interface RankingBoardProps {
   onScore: (team: 1 | 2, points: number) => void
 }
 
-// Helper function to shuffle an array
-const shuffleArray = <T,>(array: T[]): T[] => {
-  const shuffled = [...array]
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-  }
-  return shuffled
-}
-
 function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: RankingBoardProps) {
-  // Initialize with shuffled orders so each team starts with different arrangements
-  const [team1Ranking, setTeam1Ranking] = useState<number[]>(() => shuffleArray(answers.map((_, i) => i)))
-  const [team2Ranking, setTeam2Ranking] = useState<number[]>(() => shuffleArray(answers.map((_, i) => i)))
+  const [team1Ranking, setTeam1Ranking] = useState<number[]>(answers.map((_, i) => i))
+  const [team2Ranking, setTeam2Ranking] = useState<number[]>(answers.map((_, i) => i))
   const [team1Scored, setTeam1Scored] = useState(false)
   const [team2Scored, setTeam2Scored] = useState(false)
   const [showResults, setShowResults] = useState(false)
@@ -34,25 +23,10 @@ function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: Ra
     .sort((a, b) => b.points - a.points)
     .map(item => item.index)
 
-  const [draggedItem, setDraggedItem] = useState<{ answerIndex: number; team: 1 | 2 } | null>(null)
-
-  const handleDragStart = (e: React.DragEvent, position: number, team: 1 | 2) => {
-    const ranking = team === 1 ? team1Ranking : team2Ranking
-    const answerIndex = ranking[position]
-    setDraggedItem({ answerIndex, team })
+  const handleDragStart = (e: React.DragEvent, index: number, team: 1 | 2) => {
     e.dataTransfer.effectAllowed = 'move'
-    e.dataTransfer.setData('text/plain', '') // Required for Firefox
-    // Add visual feedback
-    if (e.currentTarget instanceof HTMLElement) {
-      e.currentTarget.classList.add('dragging')
-    }
-  }
-
-  const handleDragEnd = (e: React.DragEvent) => {
-    setDraggedItem(null)
-    if (e.currentTarget instanceof HTMLElement) {
-      e.currentTarget.classList.remove('dragging')
-    }
+    e.dataTransfer.setData('text/html', index.toString())
+    e.dataTransfer.setData('team', team.toString())
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -60,41 +34,24 @@ function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: Ra
     e.dataTransfer.dropEffect = 'move'
   }
 
-  const handleDrop = (e: React.DragEvent, dropPosition: number, team: 1 | 2) => {
+  const handleDrop = (e: React.DragEvent, dropIndex: number, team: 1 | 2) => {
     e.preventDefault()
-    
-    if (!draggedItem || draggedItem.team !== team) {
-      setDraggedItem(null)
-      return
-    }
+    const dragIndex = parseInt(e.dataTransfer.getData('text/html'))
+    const dragTeam = parseInt(e.dataTransfer.getData('team'))
 
-    const { answerIndex: draggedAnswerIndex } = draggedItem
-    const ranking = team === 1 ? team1Ranking : team2Ranking
-    const currentPosition = ranking.indexOf(draggedAnswerIndex)
-
-    // Don't do anything if dropping on the same position
-    if (currentPosition === dropPosition) {
-      setDraggedItem(null)
-      return
-    }
+    if (dragTeam !== team) return
 
     if (team === 1 && !team1Scored) {
       const newRanking = [...team1Ranking]
-      // Remove from current position
-      newRanking.splice(currentPosition, 1)
-      // Insert at new position
-      newRanking.splice(dropPosition, 0, draggedAnswerIndex)
+      const [removed] = newRanking.splice(dragIndex, 1)
+      newRanking.splice(dropIndex, 0, removed)
       setTeam1Ranking(newRanking)
     } else if (team === 2 && !team2Scored) {
       const newRanking = [...team2Ranking]
-      // Remove from current position
-      newRanking.splice(currentPosition, 1)
-      // Insert at new position
-      newRanking.splice(dropPosition, 0, draggedAnswerIndex)
+      const [removed] = newRanking.splice(dragIndex, 1)
+      newRanking.splice(dropIndex, 0, removed)
       setTeam2Ranking(newRanking)
     }
-
-    setDraggedItem(null)
   }
 
   const calculateScore = (ranking: number[]): number => {
@@ -155,10 +112,9 @@ function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: Ra
             return (
               <div
                 key={answerIndex}
-                className={`ranking-item ${showCorrect ? 'correct-position' : ''} ${showResults && !isCorrectPosition ? 'incorrect-position' : ''} ${draggedItem?.answerIndex === answerIndex && draggedItem?.team === team ? 'dragging' : ''}`}
+                className={`ranking-item ${showCorrect ? 'correct-position' : ''} ${showResults && !isCorrectPosition ? 'incorrect-position' : ''}`}
                 draggable={!isScored}
                 onDragStart={(e) => handleDragStart(e, position, team)}
-                onDragEnd={handleDragEnd}
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, position, team)}
               >
@@ -188,6 +144,7 @@ function RankingBoard({ answers, team1Name, team2Name, activeTeam, onScore }: Ra
           <button
             onClick={() => handleScore(team)}
             className="score-ranking-btn"
+            disabled={!isActive}
           >
             Score {teamName}
           </button>

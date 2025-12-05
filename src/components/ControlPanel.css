@@ -1,41 +1,41 @@
 .control-panel {
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 25px;
   align-items: center;
 }
 
 .strikes-display {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .strikes-label {
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
 .strikes-indicator {
   display: flex;
-  gap: 8px;
+  gap: 15px;
 }
 
 .strike {
-  width: 35px;
-  height: 35px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 2rem;
   color: rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
@@ -51,21 +51,21 @@
 .control-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 15px;
   justify-content: center;
 }
 
 .btn {
-  padding: 8px 16px;
-  font-size: 0.85rem;
+  padding: 15px 30px;
+  font-size: 1.1rem;
   font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn:hover {

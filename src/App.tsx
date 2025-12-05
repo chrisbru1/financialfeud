@@ -11,13 +11,11 @@ import LightningAnswerBoard from './components/LightningAnswerBoard'
 import RankingBoard from './components/RankingBoard'
 import ControlPanel from './components/ControlPanel'
 import IntroScreen from './components/IntroScreen'
-import WinnerScreen from './components/WinnerScreen'
 import { QUESTIONS, Question } from './data/questions'
 import './App.css'
 
 function App() {
   const [showIntro, setShowIntro] = useState(true)
-  const [showWinner, setShowWinner] = useState(false)
   const [team1Name, setTeam1Name] = useState('Team 1')
   const [team2Name, setTeam2Name] = useState('Team 2')
   const [team1Score, setTeam1Score] = useState(0)
@@ -93,12 +91,6 @@ function App() {
   }
 
   const nextQuestion = () => {
-    // Check if this is the last question (Round 14)
-    if (currentQuestion.id === 14) {
-      setShowWinner(true)
-      return
-    }
-    
     const nextIndex = (currentQuestionIndex + 1) % QUESTIONS.length
     setCurrentQuestionIndex(nextIndex)
     setCurrentQuestion(QUESTIONS[nextIndex])
@@ -130,11 +122,6 @@ function App() {
 
   const goToIntro = () => {
     setShowIntro(true)
-    setShowWinner(false)
-    resetGame()
-  }
-
-  const handlePlayAgain = () => {
     resetGame()
   }
 
@@ -159,6 +146,7 @@ function App() {
             answers={currentQuestion.answers}
             revealedIndices={revealedIndices}
             onReveal={revealSurveyAnswer}
+            onStrike={addStrike}
             activeTeam={activeTeam}
             activeTeamName={activeTeam === 1 ? team1Name : team2Name}
           />
@@ -167,8 +155,6 @@ function App() {
       case 'closest':
         return (
           <ClosestAnswerBoard
-            key={currentQuestion.id}
-            questionId={currentQuestion.id}
             correctAnswer={currentQuestion.correctAnswer}
             expectedRange={currentQuestion.expectedRange}
             onScore={handleScore}
@@ -220,13 +206,11 @@ function App() {
         )
 
       case 'open':
-        // Round 4 and Round 7 have max 100 points, others default to 40
-        const maxPoints = (currentQuestion.id === 4 || currentQuestion.id === 7) ? 100 : 40
         return (
           <OpenAnswerBoard
             onScore={handleScore}
             activeTeam={activeTeam}
-            maxPoints={maxPoints}
+            maxPoints={40}
             team1Name={team1Name}
             team2Name={team2Name}
           />
@@ -250,21 +234,6 @@ function App() {
   if (showIntro) {
     return <IntroScreen onStart={handleStartGame} />
   }
-
-  if (showWinner) {
-    return (
-      <WinnerScreen
-        team1Name={team1Name}
-        team2Name={team2Name}
-        team1Score={team1Score}
-        team2Score={team2Score}
-        onPlayAgain={handlePlayAgain}
-        onGoToIntro={goToIntro}
-      />
-    )
-  }
-
-  const isLastQuestion = currentQuestion.id === 14
 
   return (
     <div className="app">
@@ -293,7 +262,6 @@ function App() {
           onReset={resetGame}
           onSwitchTeam={() => setActiveTeam(activeTeam === 1 ? 2 : 1)}
           onGoToIntro={goToIntro}
-          isLastQuestion={isLastQuestion}
         />
       </GameBoard>
     </div>

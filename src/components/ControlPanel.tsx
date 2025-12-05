@@ -7,10 +7,9 @@ interface ControlPanelProps {
   onReset: () => void
   onSwitchTeam: () => void
   onGoToIntro: () => void
-  isLastQuestion: boolean
 }
 
-function ControlPanel({ strikes, onStrike, onNextQuestion, onReset, onSwitchTeam, onGoToIntro, isLastQuestion }: ControlPanelProps) {
+function ControlPanel({ strikes, onStrike, onNextQuestion, onReset, onSwitchTeam, onGoToIntro }: ControlPanelProps) {
   return (
     <div className="control-panel">
       <div className="strikes-display">
@@ -34,7 +33,7 @@ function ControlPanel({ strikes, onStrike, onNextQuestion, onReset, onSwitchTeam
           Switch Team
         </button>
         <button className="btn btn-next" onClick={onNextQuestion}>
-          {isLastQuestion ? 'End Game' : 'Next Question'}
+          Next Question
         </button>
         <button className="btn btn-reset" onClick={onReset}>
           Reset Game

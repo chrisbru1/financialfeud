@@ -76,7 +76,7 @@ export const QUESTIONS: Question[] = [
     title: "What actually moves gross margin?",
     type: "survey",
     prompt:
-      "Name the items with the biggest impact on gross margin.",
+      "Name the expense categories with the biggest impact on gross margin.",
     answers: [
       {
         label: "Per message pricing (net revenue per message)",
