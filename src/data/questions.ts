@@ -47,13 +47,13 @@ export const QUESTIONS: Question[] = [
     title: "Where does $1 of revenue go?",
     type: "survey",
     prompt:
-      "Name the 5 expense categories that build our Operating Expenses (OpEx) in the P&L.",
+      "Name the 5 main expense categories in our P&L.",
     answers: [
-      { label: "Sales & Marketing", points: 40 },
-      { label: "R&D / Product Development", points: 30 },
-      { label: "G&A / Overhead", points: 20 },
-      { label: "Customer Support / Success", points: 15 },
-      { label: "Other OpEx (tools, contractors, travel)", points: 10 },
+      { label: "Sales & Marketing spend, 47%", points: 50 },
+      { label: "R&D / product development, 29%", points: 30 },
+      { label: "Aggregator COGS (Twilio), 22%", points: 25 },
+      { label: "G&A and overhead, 19%", points: 20 },
+      { label: "Infrastructure and Hosting COGS (AWS, Givecard, OpenAI), 5%", points: 10 },
     ] as SurveyAnswer[],
     hostNotes:
       "Feud-style: any bucket they name that matches one of these earns the corresponding points.",
