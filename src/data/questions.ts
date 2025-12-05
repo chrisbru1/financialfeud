@@ -49,11 +49,11 @@ export const QUESTIONS: Question[] = [
     prompt:
       "Name the 5 main expense categories in our P&L.",
     answers: [
-      { label: "Sales & Marketing spend, 47%", points: 50 },
-      { label: "R&D / product development, 29%", points: 30 },
-      { label: "Aggregator COGS (Twilio), 22%", points: 25 },
-      { label: "G&A and overhead, 19%", points: 20 },
-      { label: "Infrastructure and Hosting COGS (AWS, Givecard, OpenAI), 5%", points: 10 },
+      { label: "Sales & Marketing spend – 39%", points: 50 },
+      { label: "R&D / product development – 21%", points: 30 },
+      { label: "Aggregator COGS (Twilio) – 21%", points: 25 },
+      { label: "G&A and overhead – 14%", points: 20 },
+      { label: "Infrastructure & Hosting COGS (AWS, Givecard, OpenAI) – 5%", points: 10 },
     ] as SurveyAnswer[],
     hostNotes:
       "Feud-style: any bucket they name that matches one of these earns the corresponding points.",
@@ -194,11 +194,12 @@ export const QUESTIONS: Question[] = [
     prompt:
       "Top 5 factors that influence our long-term revenue growth.",
     answers: [
-      { label: "Net revenue retention (renewals + expansion)", points: 50 },
-      { label: "New logo acquisition volume & ACV", points: 40 },
-      { label: "Product differentiation / category advantage", points: 20 },
-      { label: "Product expansion", points: 20 },
-      { label: "Sales execution (win rates, pipeline generation)", points: 20 },
+      { label: "Decrease churn and improve retention", points: 40 },
+      { label: "Expand existing customers via upsell/attach", points: 35 },
+      { label: "Acquire new customers in ICP", points: 30 },
+      { label: "Increase pipeline opportunities", points: 20 },
+      { label: "Improve product differentiation", points: 20 },
+      { label: "Improve sales execution including win rates and velocity", points: 15 },
     ] as SurveyAnswer[],
     hostNotes: "Feud-style scoring.",
   },
